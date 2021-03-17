@@ -1,6 +1,9 @@
 package tic_tac_toe.model;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 import tic_tac_toe.view.Board;
 
@@ -8,27 +11,34 @@ public class Game {
 	
 	private Board board;  
 	private Scanner input = new Scanner(System.in); 
-	private char player1; 
-	private char player2; 
+	private static Map<String, Character> playerMap = new HashMap<>(); 
+	private String p1 = "Player 1"; 
+	private String p2 = "Player 2"; 
 	
 	public Game() {
 		 board = new Board(); 
 	}
 	
 	public void play() {
+		playerMap = createPlayerMap(); 
 		boolean gameOver = false; 
+		String whoGoesFirst = decideWhoGoesFirst(); 
 		
-		selectXorO();
-		char[] players = decideWhoGoesFirst(); 
+		if (whoGoesFirst == p1) {
+			System.out.println(p1 + " will go first.\n");
+		} else {
+			System.out.println(p2 + " will go first.\n");
+			playerMap = ((TreeMap<String, Character>)playerMap).descendingMap();
+		}
 		
 		while (!gameOver) {
-			for (char p : players) {
-				System.out.print("Player " + p + " enter a row (0 , 1, or 2): "); 
+			for (Map.Entry<String,Character> entry : playerMap.entrySet()) {
+				System.out.print(entry.getKey() + " enter a row (0 , 1, or 2): "); 
 				int row = input.nextInt(); 
 				System.out.print("Enter a column (0, 1, or 2): ");
 				int column = input.nextInt(); 
 				
-				makeMove(row, column, p); 
+				makeMove(row, column, entry.getValue()); 
 				board.displayBoard(); 
 				
 				if (isBoardFull()) {
@@ -37,7 +47,7 @@ public class Game {
 					break;
 				} 
 				if (checkForWinner() == true) {
-					System.out.println("Player " + p + " you win!"); 
+					System.out.println(entry.getKey() + " you win!"); 
 					gameOver = true;
 					break; 
 				}
@@ -45,23 +55,26 @@ public class Game {
 		}
 	}
 	
-	public void selectXorO() { 
-		char c = validateXorO(input); 
-		
-		if (c == 'X') {
-			player1 = 'X'; 
-			player2 = 'O'; 
-			System.out.println("Player 1 is X. Player 2 is O.");
+	public Map<String, Character> createPlayerMap() {
+		Map<String, Character> map = new HashMap<>();
+		Map<String, Character> treeMap; 
+		char selection = selectXorO(input);
+		if (selection == 'X') {
+			map.put(p1, 'X'); 
+			map.put(p2, 'O'); 
+			treeMap = new TreeMap<>(map); 
+			return treeMap; 
 		} else {
-			player1 = 'O'; 
-			player2 = 'X'; 
-			System.out.println("Player 1 is O. Player 2 is X.");
-		} 
+			map.put(p1, 'O'); 
+			map.put(p2, 'X'); 
+			treeMap = new TreeMap<>(map); 
+			return treeMap;  
+		}
 	}
 	
-	public char validateXorO(Scanner input) {
+	
+	public static char selectXorO(Scanner input) {
 		char c; 
-		
 		System.out.print("Player 1, select X or O: "); 
 		c = input.next().toUpperCase().charAt(0); 
 		
@@ -72,18 +85,12 @@ public class Game {
 		return c;
 	}
 	
-	
-	public char[] decideWhoGoesFirst() { 
-		char[] players = new char[2]; 
+	public String decideWhoGoesFirst() {
 		int n = (int)(Math.random() * 2); 
 		if (n == 0) {
-			players[0] = player1;
-			players[1] = player2; 
-		} else {
-			players[0] = player2; 
-			players[1] = player1; 
-		}
-		return players; 
+			return p1; 
+		} 
+		return p2; 
 	}
 	
 	public void makeMove(int row, int column, char c) {
