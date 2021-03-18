@@ -55,7 +55,7 @@ public class Game {
 		}
 	}
 	
-	public Map<String, Character> createPlayerMap() {
+	private Map<String, Character> createPlayerMap() {
 		Map<String, Character> map = new HashMap<>();
 		Map<String, Character> treeMap; 
 		char selection = selectXorO(input);
@@ -73,7 +73,7 @@ public class Game {
 	}
 	
 	
-	public static char selectXorO(Scanner input) {
+	private static char selectXorO(Scanner input) {
 		char c; 
 		System.out.print("Player 1, select X or O: "); 
 		c = input.next().toUpperCase().charAt(0); 
@@ -85,7 +85,7 @@ public class Game {
 		return c;
 	}
 	
-	public String decideWhoGoesFirst() {
+	private String decideWhoGoesFirst() {
 		int n = (int)(Math.random() * 2); 
 		if (n == 0) {
 			return p1; 
@@ -93,14 +93,14 @@ public class Game {
 		return p2; 
 	}
 	
-	public void makeMove(int row, int column, char c) {
+	private void makeMove(int row, int column, char c) {
 		while (!isSpaceFree(row, column)) {
 			System.out.println("Select another space");
 		}
 		board.getMatrix()[row][column] = c; 
 	}
 	 
-	public boolean isBoardFull() {
+	private boolean isBoardFull() {
 		for (int row = 0; row < board.getMatrix().length; row++) {
 			for (int column = 0; column < board.getMatrix()[row].length; column++) {
 				if (isSpaceFree(row, column)) {
@@ -111,14 +111,14 @@ public class Game {
 		return true;
 	}
 	
-	public boolean isSpaceFree(int row, int column) {
+	private boolean isSpaceFree(int row, int column) {
 		if (board.getMatrix()[row][column] == ' ') {
 			return true; 
 		}
 		return false;
 	}
 	
-	public boolean checkForWinner() {
+	private boolean checkForWinner() {
 		if (checkRows() || checkColumns() || checkDiagonal() || checkDiagonalReverse()) {
 			return true; 
 		}
@@ -194,9 +194,5 @@ public class Game {
 		}
 		return matchedDiagonal; 
 	} 
-	
-	public Board getBoard() {
-		return board; 
-	}
  
 }
