@@ -170,7 +170,7 @@ public class Game {
 		boolean matchedDiagonal = false; 
 		for (int row = 0, col = 0; row < board.getMatrix().length - 1; row++, col++) {
 			matchedDiagonal = false; 
-			if (board.getMatrix()[row][col] != ' ') {
+			if (board.getMatrix()[row][col] != ' ' && board.getMatrix()[row][col] == board.getMatrix()[0][0]) {
 				if (board.getMatrix()[row][col] == board.getMatrix()[row + 1][col + 1]) {
 					matchedDiagonal = true; 
 				}
@@ -184,7 +184,7 @@ public class Game {
 	private boolean checkDiagonalReverse() {		
 		boolean matchedDiagonal = false;
 		for (int row = 0, col = board.getMatrix().length - 1; row < board.getMatrix().length - 1; row++, col--) {
-			if (board.getMatrix()[row][col] != ' ') {
+			if (board.getMatrix()[row][col] != ' ' && board.getMatrix()[row][col] == board.getMatrix()[0][board.getMatrix().length - 1]) {
 				if (board.getMatrix()[row][col] == board.getMatrix()[row + 1][col - 1]) {
 					matchedDiagonal = true; 
 				}
