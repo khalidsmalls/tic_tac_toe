@@ -2,7 +2,7 @@ package tic_tac_toe.main;
 
 import tic_tac_toe.model.Game;
 
-public class Main {
+public class ConsoleMain {
 	
 	private static Game game = new Game(); 
 
