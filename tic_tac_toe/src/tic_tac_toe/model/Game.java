@@ -7,8 +7,6 @@ import java.util.TreeMap;
 
 import tic_tac_toe.view.BoardConsole;
 
-//test to see if development pushes to development
-
 public class Game {
 	
 	private BoardConsole board;  
