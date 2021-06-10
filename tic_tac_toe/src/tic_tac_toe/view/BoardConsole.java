@@ -1,11 +1,11 @@
 package tic_tac_toe.view;
 
 
-public class Board { 
+public class BoardConsole { 
 	
 	private char[][] board; 
 	
-	public Board() {
+	public BoardConsole() {
 		board = new char[3][3]; 
 		initializeSpaces(); 
 	}
