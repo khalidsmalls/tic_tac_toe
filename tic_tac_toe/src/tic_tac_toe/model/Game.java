@@ -5,18 +5,20 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-import tic_tac_toe.view.Board;
+import tic_tac_toe.view.BoardConsole;
+
+//test to see if development pushes to development
 
 public class Game {
 	
-	private Board board;  
+	private BoardConsole board;  
 	private Scanner input = new Scanner(System.in); 
 	private static Map<String, Character> playerMap = new HashMap<>(); 
 	private String p1 = "Player 1"; 
 	private String p2 = "Player 2"; 
 	
 	public Game() {
-		 board = new Board(); 
+		 board = new BoardConsole(); 
 	}
 	
 	public void play() {
